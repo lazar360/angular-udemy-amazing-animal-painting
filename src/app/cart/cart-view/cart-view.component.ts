@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';  
+import { Component, OnInit, Optional } from '@angular/core';  
 import { CartService } from '../cart.service';  
 import { Product } from 'src/app/models/product';  
+import { Observable } from 'rxjs';
 
 @Component({  
   selector: 'app-cart-view',  
   templateUrl: './cart-view.component.html',  
   styleUrls: ['./cart-view.component.css']  
 })  
-export class CartViewComponent implements OnInit {  
+export class CartViewComponent implements OnInit {
+
 
   cartItems: Product[] = [];  
   totalPrice: number = 0;  
@@ -27,5 +29,14 @@ export class CartViewComponent implements OnInit {
       total += item.price; // Accumulate the total price  
     });  
     return total; // Return the calculated total price  
-  }  
+  }
+  
+  clearCart():void{
+    this.cartService.clearCart().subscribe();
+    }  
+
+  checkout():void{
+    this.cartService.checkout(this.cartItems).subscribe();
+  }
+  
 }
